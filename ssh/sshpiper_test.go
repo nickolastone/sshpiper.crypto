@@ -30,7 +30,7 @@ func ExampleNewSSHPiperConn() {
 
 			// change upstream username to root
 			return c, &AuthPipe{
-				User: "root",
+				User:                    "root",
 				UpstreamHostKeyCallback: InsecureIgnoreHostKey(),
 			}, nil
 		},
@@ -173,7 +173,7 @@ func TestPiperFindUpstreamWithUserCallback(t *testing.T) {
 			}, t)
 
 			return s, &AuthPipe{
-				User: mappedname,
+				User:                    mappedname,
 				UpstreamHostKeyCallback: InsecureIgnoreHostKey(),
 			}, err
 		},
@@ -392,7 +392,7 @@ func TestPiperServerWithBanner(t *testing.T) {
 			}, t)
 
 			return s, &AuthPipe{
-				User: mappedname,
+				User:                    mappedname,
 				UpstreamHostKeyCallback: InsecureIgnoreHostKey(),
 			}, err
 		},
@@ -612,7 +612,7 @@ func TestPiperConnMeta(t *testing.T) {
 		FindUpstream: func(conn ConnMetadata, challengeCtx AdditionalChallengeContext) (net.Conn, *AuthPipe, error) {
 			s, err := dialUpstream(simpleEchoHandler, &ServerConfig{NoClientAuth: true}, t)
 			return s, &AuthPipe{
-				User: "up",
+				User:                    "up",
 				UpstreamHostKeyCallback: InsecureIgnoreHostKey(),
 			}, err
 		},
