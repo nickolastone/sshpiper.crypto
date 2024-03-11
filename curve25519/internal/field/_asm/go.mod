@@ -1,6 +1,8 @@
 module asm
 
-go 1.16
+go 1.22
+
+toolchain go1.22.1
 
 require (
 	github.com/mmcloughlin/avo v0.4.0

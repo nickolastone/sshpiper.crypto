@@ -465,7 +465,7 @@ func (pipe *pipedConn) ack(key PublicKey) error {
 
 func (pipe *pipedConn) checkPublicKey(msg *userAuthRequestMsg, pubkey PublicKey, sig *Signature) (bool, error) {
 
-	if !isAcceptableAlgo(sig.Format) {
+	if !contains(supportedPubKeyAuthAlgos, sig.Format) {
 		return false, fmt.Errorf("ssh: algorithm %q not accepted", sig.Format)
 	}
 	signedData := buildDataSignedForAuth(pipe.downstream.transport.getSessionID(), *msg, pubkey.Type(), pubkey.Marshal())
@@ -534,7 +534,7 @@ func parsePublicKeyMsg(userAuthReq *userAuthRequestMsg) (PublicKey, bool, *Signa
 		return nil, false, nil, parseError(msgUserAuthRequest)
 	}
 	algo := string(algoBytes)
-	if !isAcceptableAlgo(algo) {
+	if !contains(supportedPubKeyAuthAlgos, algo) {
 		return nil, false, nil, fmt.Errorf("ssh: algorithm %q not accepted", algo)
 	}
 
